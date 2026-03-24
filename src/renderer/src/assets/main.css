@@ -25,12 +25,37 @@ body {
   margin-bottom: 18px;
 }
 
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 .title {
   font-size: 22px;
   font-weight: 700;
   color: #ffffff;
   margin: 0 0 4px;
   letter-spacing: -0.3px;
+}
+
+.clear-btn {
+  background: #3a3a3a;
+  border: 1px solid #505050;
+  color: #ccc;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.clear-btn:hover {
+  background: #4a4a4a;
+  color: #fff;
 }
 
 .subtitle {

@@ -1,6 +1,7 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+import { autoUpdater } from 'electron-updater'
 import icon from '../../resources/icon.png?asset'
 
 function createWindow(): void {
@@ -49,6 +50,24 @@ app.whenReady().then(() => {
   ipcMain.on('ping', () => console.log('pong'))
 
   createWindow()
+
+  // Check for updates after launch
+  autoUpdater.checkForUpdatesAndNotify()
+
+  autoUpdater.on('update-downloaded', (info) => {
+    dialog
+      .showMessageBox({
+        type: 'info',
+        title: 'Update Ready',
+        message: `A new version of ClipStack (v${info.version}) has been downloaded. Quit and install now?`,
+        buttons: ['Restart', 'Later']
+      })
+      .then((result) => {
+        if (result.response === 0) {
+          autoUpdater.quitAndInstall()
+        }
+      })
+  })
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the dock icon is clicked and there are no other windows open.

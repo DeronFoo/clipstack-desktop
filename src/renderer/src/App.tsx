@@ -30,9 +30,13 @@ export default function App(): ReactElement {
     setTimeout(() => setCopiedId(null), 1200)
   }
 
+  const handleClearAll = (): void => {
+    setClips([])
+  }
+
   return (
     <div className="container">
-      <Header />
+      <Header onClearAll={handleClearAll} />
 
       <div className="clip-list">
         {clips.length === 0 && (
